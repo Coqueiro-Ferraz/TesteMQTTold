@@ -1,0 +1,15 @@
+static int count = 0;
+static char line[128];
+while (count < 128) {
+            int c = fgetc(stdin);
+            if (c == '\n') {
+                line[count] = '\0';
+                break;
+            } else if (c > 0 && c < 127) {
+                line[count] = c;
+                ++count;
+            }
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+
+parece que com isso, posso entrar com dados vindos do teclado para o console e enviar para o ESP

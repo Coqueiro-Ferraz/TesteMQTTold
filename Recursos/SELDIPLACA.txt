@@ -1,0 +1,32 @@
+coisas do projeto de testes da placa
+
+ok	Saídas digitais
+ok	Entradas digitais
+ok	LCD
+ok	Teclado
+ok	GitHub
+	Expander - falta testar
+	ADC - falta testar
+ok	PWM - comentado funcionando
+ok	Servo motor - falta ajustar min e max duty
+ok	Motor de passo 28BYJ-48 - tentar nos transístores
+	Motor Nema17 - via controlador DRV8825
+	DHT
+	UART via DHT
+	PWM via DHT
+	I2C via DHT
+	SPI via DHT e EXP
+	DAC? via DHT
+	7 segmentos via Expander
+ok	Apresentação
+	Menu de contexto realizando apresentações
+ok	Free RTOS
+	Interrupções
+ok	Wi-fi connect
+	Wi-fi comunic
+	MQTT
+	BT
+	Foto célula
+	Fan Speed
+	Emissor de senhas projeto final
+	Organizar em bibliotecas - quase finalizado
