@@ -290,7 +290,7 @@ void app_main(void)
     //wifi_connect_sta("coqueiro", "amigos12", 4000);
     ioinit();
   
-    temp_val = rand() % 10;
+    temp_val = rand() % 100;
     sprintf(&mensa[0],"%s %d }}",string_temp,temp_val);
     mqtt_app_start();
     vTaskDelay(10000 / portTICK_PERIOD_MS);
