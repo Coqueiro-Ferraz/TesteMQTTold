@@ -12,6 +12,7 @@
 //#ifndef LCD_CK
 #define LCD_CK      GPIO_NUM_17
 //#endif
+#define portTICK_RATE_MS portTICK_PERIOD_MS
 
 uint8_t dado_atual;
 

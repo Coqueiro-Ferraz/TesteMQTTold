@@ -93,14 +93,14 @@ void wifi_event_handler(void *event_handler_arg, esp_event_base_t event_base, in
 {
     switch (event_id)
     {
-    case SYSTEM_EVENT_STA_START:
+    case WIFI_EVENT_STA_START:
         ESP_LOGI(TAG, "Conectando...");
         esp_wifi_connect();
         break;
-    case SYSTEM_EVENT_STA_CONNECTED:
+    case WIFI_EVENT_STA_CONNECTED:
         ESP_LOGI(TAG, "Conectado com sucesso");
         break;
-    case SYSTEM_EVENT_STA_DISCONNECTED:
+    case WIFI_EVENT_STA_DISCONNECTED:
     {
         wifi_event_sta_disconnected_t *wifi_event_sta_disconnected = event_data;
         // wifi_err_reason_t

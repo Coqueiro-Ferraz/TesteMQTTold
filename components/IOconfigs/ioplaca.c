@@ -30,12 +30,14 @@
 #define EXP_DT_WR   GPIO_NUM_25
 #define EXP_DT_RD   GPIO_NUM_26
 
+#define portTICK_RATE_MS portTICK_PERIOD_MS
+
 char le_teclado ()
 {        
     int i,j;
     uint8_t linha = 0b1000;
     uint8_t coluna = 0; 
-    uint8_t mostra;
+    uint8_t mostra = 0;
     char tecla = '_';
 
     for (j = 0; j < 4; j++)
@@ -149,20 +151,20 @@ uint8_t exp_le_escreve (uint8_t enviar)//>26 microssegundos
     uint8_t recebido = 0;
     int j;
     gpio_set_level(EXP_SH_LD,1);
-    ets_delay_us(1);  
+    //ets_delay_us(1);  
     for (j = 7; j >= 0; j--)
     {
         recebido <<= 1;
         recebido += gpio_get_level(EXP_DT_RD);
         gpio_set_level(EXP_DT_WR, ( enviar >> j ) & 1);
-        ets_delay_us(1);  
+       // ets_delay_us(1);  
         gpio_set_level(EXP_CK,1);
-        ets_delay_us(1);  
+      //  ets_delay_us(1);  
         gpio_set_level(EXP_CK,0);
-        ets_delay_us(1);  
+     //   ets_delay_us(1);  
     } 
     gpio_set_level(EXP_SH_LD,0);
-    ets_delay_us(1);  
+    //ets_delay_us(1);  
 
     return recebido;
 }
@@ -172,20 +174,20 @@ uint8_t io_le_escreve(uint8_t saidas)
     int j;
     uint8_t entradas = 0;
     gpio_set_level(IO_SH_LD,1);
-    ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS);  
+   // ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS);  
     for (j = 7; j >= 0; j--)
     {
         entradas <<= 1;
         entradas += gpio_get_level(IO_DT_RD);
         gpio_set_level(IO_DT_WR, ( saidas >> j ) & 1);
-        ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS);
+      //  ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS);
         gpio_set_level(IO_CK,1);
-        ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS);
+      //  ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS);
         gpio_set_level(IO_CK,0);
-        ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS);
+       // ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS);
     } 
     gpio_set_level(IO_SH_LD,0);
-    ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS); 
+   // ets_delay_us(10); //vTaskDelay(10 / portTICK_RATE_MS); 
 
     return entradas;
 
@@ -193,9 +195,9 @@ uint8_t io_le_escreve(uint8_t saidas)
 
 void ioinit(void)
 {
-    gpio_pad_select_gpio(LCD_DT_WR);
-    gpio_pad_select_gpio(LCD_CK);
-    gpio_pad_select_gpio(LCD_SH_LD);
+    gpio_reset_pin(LCD_DT_WR);
+    gpio_reset_pin(LCD_CK);
+    gpio_reset_pin(LCD_SH_LD);
 
     gpio_set_direction(LCD_DT_WR, GPIO_MODE_OUTPUT);
     gpio_set_direction(LCD_SH_LD, GPIO_MODE_OUTPUT);
@@ -205,10 +207,10 @@ void ioinit(void)
     gpio_set_level(LCD_SH_LD, 0);
     gpio_set_level(LCD_CK, 0);
 
-    gpio_pad_select_gpio(TEC_DT_WR);
-    gpio_pad_select_gpio(TEC_CK);
-    gpio_pad_select_gpio(TEC_SH_LD);
-    gpio_pad_select_gpio(TEC_DT_WR);
+    gpio_reset_pin(TEC_DT_WR);
+    gpio_reset_pin(TEC_CK);
+    gpio_reset_pin(TEC_SH_LD);
+    gpio_reset_pin(TEC_DT_WR);
     gpio_set_direction(TEC_DT_WR, GPIO_MODE_OUTPUT);
     gpio_set_direction(TEC_SH_LD, GPIO_MODE_OUTPUT);
     gpio_set_direction(TEC_CK, GPIO_MODE_OUTPUT);
@@ -217,10 +219,10 @@ void ioinit(void)
     gpio_set_level(TEC_CK,0);
     gpio_set_level(TEC_SH_LD,0);
 
-    gpio_pad_select_gpio(EXP_DT_WR);
-    gpio_pad_select_gpio(EXP_CK);
-    gpio_pad_select_gpio(EXP_SH_LD);
-    gpio_pad_select_gpio(EXP_DT_WR);
+    gpio_reset_pin(EXP_DT_WR);
+    gpio_reset_pin(EXP_CK);
+    gpio_reset_pin(EXP_SH_LD);
+    gpio_reset_pin(EXP_DT_WR);
     gpio_set_direction(EXP_DT_WR, GPIO_MODE_OUTPUT);
     gpio_set_direction(EXP_SH_LD, GPIO_MODE_OUTPUT);
     gpio_set_direction(EXP_CK, GPIO_MODE_OUTPUT);
@@ -229,9 +231,9 @@ void ioinit(void)
     gpio_set_level(EXP_CK,0);
     gpio_set_level(EXP_SH_LD,0);
     
-    gpio_pad_select_gpio(IO_DT_WR);
-    gpio_pad_select_gpio(IO_CK);
-    gpio_pad_select_gpio(IO_SH_LD);
+    gpio_reset_pin(IO_DT_WR);
+    gpio_reset_pin(IO_CK);
+    gpio_reset_pin(IO_SH_LD);
     gpio_set_direction(IO_DT_WR, GPIO_MODE_OUTPUT);
     gpio_set_direction(IO_SH_LD, GPIO_MODE_OUTPUT);
     gpio_set_direction(IO_CK, GPIO_MODE_OUTPUT);
